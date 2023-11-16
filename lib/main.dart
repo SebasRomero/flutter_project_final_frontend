@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/auth/signUp.dart';
 import 'package:frontend_flutter/presentationPage.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,13 +13,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return GraphQLProvider(
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const EnglishApp(),
       ),
-      home: const EnglishApp(),
     );
   }
 }
@@ -33,13 +36,9 @@ class EnglishApp extends StatefulWidget {
 class _EnglishAppState extends State<EnglishApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "EnglishApp",
-      initialRoute: "/",
-      routes: {
-        "/": (context) => const Presentation(),
-        "/signup": (context) => const Register(),
-      }
-    );
+    return MaterialApp(title: "EnglishApp", initialRoute: "/", routes: {
+      "/": (context) => const Presentation(),
+      "/signup": (context) => const Register(),
+    });
   }
 }

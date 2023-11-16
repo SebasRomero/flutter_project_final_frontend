@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -34,8 +35,7 @@ class _RegisterState extends State<Register> {
                         child: Container(
                           width: MediaQuery.of(context).size.width + 100,
                           height: MediaQuery.of(context).size.width + 70,
-                          color: const Color.fromARGB(255, 255, 145, 0),
-                        ),
+                          color: Color.fromARGB(255, 101, 0, 148)                    ),
                       ),
                     ),
                     Positioned(
@@ -129,11 +129,11 @@ class _RegisterState extends State<Register> {
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor:
-                                        const Color.fromARGB(255, 255, 145, 0),
+                                        const Color.fromARGB(255, 101, 0, 148) ,
                                     side: const BorderSide(
                                         width: 1,
                                         color:
-                                            Color.fromARGB(255, 255, 145, 0)),
+                                            Color.fromARGB(255, 101, 0, 148)),
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(30))),
@@ -155,7 +155,7 @@ class _RegisterState extends State<Register> {
                                   Navigator.pushNamed(context, '/');
                                 },
                                 backgroundColor:
-                                    const Color.fromARGB(255, 255, 145, 0),
+                                    const Color.fromARGB(255, 101, 0, 148),
                                 child: const Icon(Icons.arrow_back_ios),
                               )
                             ],
@@ -174,22 +174,22 @@ class _RegisterState extends State<Register> {
     return TextFormField(
         style: const TextStyle(color: Colors.white),
         controller: cn,
-        cursorColor: const Color.fromARGB(255, 255, 145, 0),
+        cursorColor: const Color.fromARGB(255, 101, 0, 148) ,
         keyboardType: type,
         decoration: InputDecoration(
             hintText: hint,
             hintStyle: const TextStyle(color: Color.fromARGB(255, 94, 88, 88)),
             icon: Icon(iconArgument),
-            iconColor: const Color.fromARGB(255, 255, 145, 0),
+            iconColor: const Color.fromARGB(255, 101, 0, 148) ,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25.0),
               borderSide: const BorderSide(
-                color: Color.fromARGB(255, 255, 145, 0),
+                color: Color.fromARGB(255, 101, 0, 148) ,
                 width: 2.0,
               ),
             ),
             focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Color.fromARGB(255, 255, 145, 0)),
+                borderSide: BorderSide(color: Color.fromARGB(255, 101, 0, 148) ),
                 borderRadius: BorderRadius.all(Radius.circular(20))),
             labelText: label,
             labelStyle: const TextStyle(color: Colors.white),
@@ -214,7 +214,7 @@ class _RegisterState extends State<Register> {
       "phone": phone,
       "password": password  
     };
-    final url = Uri.parse("http://localhost:3000/tasks");
+    final url = Uri.parse("http://localhost:3000/graph");
     await http.post(url, body: request);
     showAlert();
   }
