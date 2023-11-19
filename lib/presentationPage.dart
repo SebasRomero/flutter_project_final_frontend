@@ -86,7 +86,7 @@ class _PresentationState extends State<Presentation> {
                           style: TextStyle(color: Colors.white),
                         ),
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 163, 94, 37))),
+                            backgroundColor: Color.fromARGB(255, 101, 0, 148) )),
                     ElevatedButton(
                         onPressed: () {
                           Navigator.pushNamed(context, '/signup');
@@ -96,7 +96,7 @@ class _PresentationState extends State<Presentation> {
                           style: TextStyle(color: Colors.white),
                         ),
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 163, 94, 37))),
+                            backgroundColor: Color.fromARGB(255, 101, 0, 148) )),
                   ]),
             )
           ],
