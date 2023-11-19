@@ -1,20 +1,20 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:frontend_flutter/auth/context.dart';
 import 'package:http/http.dart' as http;
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
 
-class Register extends StatefulWidget {
-  const Register({super.key});
+class Login extends StatefulWidget {
+  const Login({super.key});
 
   @override
-  State<Register> createState() => _RegisterState();
+  State<Login> createState() => _LoginState();
 }
 
-class _RegisterState extends State<Register> {
-  TextEditingController controllerHotmail = TextEditingController();
-  TextEditingController controllerName = TextEditingController();
+class _LoginState extends State<Login> {
+  TextEditingController controllerEmail = TextEditingController();
   TextEditingController controllerPassword = TextEditingController();
-  TextEditingController controllerPhone = TextEditingController();
-
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -33,9 +33,9 @@ class _RegisterState extends State<Register> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
                         child: Container(
-                          width: MediaQuery.of(context).size.width + 100,
-                          height: MediaQuery.of(context).size.width + 70,
-                          color: Color.fromARGB(255, 101, 0, 148)                    ),
+                            width: MediaQuery.of(context).size.width + 100,
+                            height: MediaQuery.of(context).size.width + 70,
+                            color: Color.fromARGB(255, 101, 0, 148)),
                       ),
                     ),
                     Positioned(
@@ -77,39 +77,19 @@ class _RegisterState extends State<Register> {
                       children: [
                         Container(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 80),
-                          child: const Text("Register",
+                          child: const Text("Login",
                               style:
                                   TextStyle(fontSize: 50, color: Colors.white)),
                         ),
                         Container(
                           padding: const EdgeInsets.all(5),
                           child: fieldsForm(
-                              controllerHotmail,
+                              controllerEmail,
                               "Email",
                               TextInputType.text,
                               "Please, insert a valid email",
                               Icons.person,
                               "johndoe@hotmail.com"),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(5),
-                          child: fieldsForm(
-                              controllerName,
-                              "Name",
-                              TextInputType.name,
-                              "Please, insert a valid name",
-                              Icons.person,
-                              "John"),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(5),
-                          child: fieldsForm(
-                              controllerPhone,
-                              "Phone",
-                              TextInputType.text,
-                              "Please, insert a valid phone",
-                              Icons.phone,
-                              "3001132445"),
                         ),
                         Container(
                           padding: const EdgeInsets.all(5),
@@ -129,7 +109,7 @@ class _RegisterState extends State<Register> {
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor:
-                                        const Color.fromARGB(255, 101, 0, 148) ,
+                                        const Color.fromARGB(255, 101, 0, 148),
                                     side: const BorderSide(
                                         width: 1,
                                         color:
@@ -139,10 +119,10 @@ class _RegisterState extends State<Register> {
                                             BorderRadius.circular(30))),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    registerUser();
+                                    loginUser();
                                   }
                                 },
-                                child: const Text("Register"),
+                                child: const Text("Login"),
                               ),
                             ],
                           ),
@@ -174,22 +154,22 @@ class _RegisterState extends State<Register> {
     return TextFormField(
         style: const TextStyle(color: Colors.white),
         controller: cn,
-        cursorColor: const Color.fromARGB(255, 101, 0, 148) ,
+        cursorColor: const Color.fromARGB(255, 101, 0, 148),
         keyboardType: type,
         decoration: InputDecoration(
             hintText: hint,
             hintStyle: const TextStyle(color: Color.fromARGB(255, 94, 88, 88)),
             icon: Icon(iconArgument),
-            iconColor: const Color.fromARGB(255, 101, 0, 148) ,
+            iconColor: const Color.fromARGB(255, 101, 0, 148),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25.0),
               borderSide: const BorderSide(
-                color: Color.fromARGB(255, 101, 0, 148) ,
+                color: Color.fromARGB(255, 101, 0, 148),
                 width: 2.0,
               ),
             ),
             focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Color.fromARGB(255, 101, 0, 148) ),
+                borderSide: BorderSide(color: Color.fromARGB(255, 101, 0, 148)),
                 borderRadius: BorderRadius.all(Radius.circular(20))),
             labelText: label,
             labelStyle: const TextStyle(color: Colors.white),
@@ -203,40 +183,32 @@ class _RegisterState extends State<Register> {
         });
   }
 
-  void registerUser() async {
-    String hotmail = controllerHotmail.text;
-    String name = controllerName.text;
-    String phone =  controllerPhone.text;
+  void loginUser() async {
+    String email = controllerEmail.text;
     String password = controllerPassword.text;
+
     Map<dynamic, dynamic> request = {
-      "username": hotmail,
-      "name": name,
-      "phone": phone,
-      "password": password  
+      "username": email,
+      "password": password,
     };
-    final url = Uri.parse("http://localhost:3000/graph");
-    await http.post(url, body: request);
-    showAlert();
-  }
+    final url = Uri.parse("http://localhost:3000/login");
+    var response = await http.post(url, body: request);
+    if (response.statusCode == 201) {
+      // Parse the response to get relevant data
+      final Map<String, dynamic> responseData = jsonDecode(response.body);
+      String accessToken = responseData['access_token'];
+      String username = responseData['username'];
 
-  showAlert() {
-    Widget ok = TextButton(
-        onPressed: () {
-          // Navigator.pop(context);
-          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-        },
-        child: const Text("Aceptar"));
-
-    AlertDialog al = AlertDialog(
-      title: const Text("Message"),
-      content: const Text("User created succesfully"),
-      actions: [ok],
-    );
-
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return al;
-        });
+      UserAuthentication userAuth =
+          Provider.of<UserAuthentication>(context, listen: false);
+          
+      userAuth.setAuthenticationData(accessToken, username);
+      Navigator.pushNamed(context, '/home');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Invalid credentials. Please try again.'),
+        backgroundColor: Colors.red,
+      ));
+    }
   }
 }
