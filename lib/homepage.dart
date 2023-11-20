@@ -10,16 +10,35 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     UserAuthentication userAuth = Provider.of<UserAuthentication>(context);
     return Scaffold(
+      key: _scaffoldKey,
       body: Container(
-        color: Colors.grey, // Set the background color to gray
+        color: const Color.fromARGB(255, 55, 57, 58), // Set the background color to gray
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Stack(
             children: [
+              Positioned(
+                top: 0,
+                right: 0, // Adjust the right position based on your design
+                child: GestureDetector(
+                  onTap: () {
+                    _scaffoldKey.currentState!.openEndDrawer();
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Icon(
+                      Icons.menu,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
               Positioned(
                 top: 0,
                 left: 0,
@@ -53,10 +72,19 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Positioned(
-                top: 100, // Adjust the top position based on your design
+                top: 110,
+                child: Container(
+                  child: Text(
+                    "You can improve every skill!",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 140, // Adjust the top position based on your design
                 left: 0,
                 child: Container(
-                  height: 100,
+                  height: 80,
                   width: MediaQuery.of(context).size.width,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
@@ -70,18 +98,28 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Positioned(
-                top: 700, // Adjust the top position based on your design
+                top: 380,
+                child: Container(
+                  child: Text(
+                    "You can learn all of these tenses!",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 400, // Adjust the top position based on your design
                 left: 0,
                 child: Container(
-                  height: 200,
+                  height: 500,
                   width: MediaQuery.of(context).size.width,
                   child: ListView(
                     children: [
                       _buildVerticalButton("Past Simple"),
-                      _buildVerticalButton("Present Simple"),
                       _buildVerticalButton("Past Continuous"),
                       _buildVerticalButton("Present Simple"),
-                      _buildVerticalButton("Present Simple"),
+                      _buildVerticalButton("Present Continuos"),
+                      _buildVerticalButton("Present Perfect"),
+                      _buildVerticalButton("Future Perfect"),
                       // Add more items as needed
                     ],
                   ),
@@ -91,18 +129,51 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
+      endDrawer: Drawer(
+        backgroundColor: const Color.fromARGB(255, 55, 57, 58),
+        child: ListView(
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 101, 0, 148),
+              ),
+              child: Text(
+                'Drawer Header',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('My tasks', style: TextStyle(color: Colors.white, fontSize: 20),),
+              onTap: () {
+                // Handle books option
+                Navigator.pop(context); // Close the drawer
+              },
+            ),
+            ListTile(
+              title: Text('My books', style: TextStyle(color: Colors.white, fontSize: 20),),
+              onTap: () {
+                // Handle books option
+                Navigator.pushNamed(context, '/books'); // Close the drawer
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 
   Widget _buildButton(String text) {
     return Container(
       margin: EdgeInsets.only(right: 12),
+      width: 120,
       child: ElevatedButton(
         onPressed: () {
           // Handle button press
         },
         style: ElevatedButton.styleFrom(
-          minimumSize: Size(50, 10),
           backgroundColor: const Color.fromARGB(255, 101, 0, 148),
         ),
         child: Text(text),
