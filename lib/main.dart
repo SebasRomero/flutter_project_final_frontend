@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:frontend_flutter/auth/context.dart';
 import 'package:frontend_flutter/auth/login.dart';
 import 'package:frontend_flutter/auth/sign_up.dart';
+import 'package:frontend_flutter/books/booksMain.dart';
+import 'package:frontend_flutter/books/createBook.dart';
 import 'package:frontend_flutter/homepage.dart';
 import 'package:frontend_flutter/presentationPage.dart';
 import 'package:provider/provider.dart';
@@ -39,10 +41,12 @@ class _EnglishAppState extends State<EnglishApp> {
       child: MaterialApp(
         title: 'Your App',
         routes: {
-          "/": (context) => const Home(),
+          "/": (context) => const Presentation(),
           "/signup": (context) => const Register(),
           "/login": (context) => const Login(),
-          "/home": (context) => const Home()
+          "/books": (context) => const BooksHome(),
+          "/home": (context) => const Home(),
+          "/books/create": (context) => const CreateBook()
         },
       ),
     );
