@@ -6,6 +6,9 @@ import 'package:frontend_flutter/books/booksMain.dart';
 import 'package:frontend_flutter/books/createBook.dart';
 import 'package:frontend_flutter/homepage.dart';
 import 'package:frontend_flutter/presentationPage.dart';
+import 'package:frontend_flutter/skills/writing.dart';
+import 'package:frontend_flutter/tasks/createTask.dart';
+import 'package:frontend_flutter/tasks/tasksMain.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -44,9 +47,13 @@ class _EnglishAppState extends State<EnglishApp> {
           "/": (context) => const Presentation(),
           "/signup": (context) => const Register(),
           "/login": (context) => const Login(),
-          "/books": (context) => const BooksHome(),
           "/home": (context) => const Home(),
-          "/books/create": (context) => const CreateBook()
+          "/books": (context) => const BooksHome(),
+          "/books/create": (context) => const CreateBook(),
+          "/tasks": (context) => const TasksHome(),
+          "/tasks/create": (context) => const CreateTask(),
+
+          "/writing": (context) => const Writing(),
         },
       ),
     );

@@ -18,7 +18,8 @@ class _HomeState extends State<Home> {
     return Scaffold(
       key: _scaffoldKey,
       body: Container(
-        color: const Color.fromARGB(255, 55, 57, 58), // Set the background color to gray
+        color: const Color.fromARGB(
+            255, 55, 57, 58), // Set the background color to gray
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Stack(
@@ -31,8 +32,8 @@ class _HomeState extends State<Home> {
                     _scaffoldKey.currentState!.openEndDrawer();
                   },
                   child: Container(
-                    padding: EdgeInsets.all(10),
-                    child: Icon(
+                    padding: const EdgeInsets.all(10),
+                    child: const Icon(
                       Icons.menu,
                       color: Colors.white,
                     ),
@@ -47,22 +48,21 @@ class _HomeState extends State<Home> {
                   children: [
                     Row(
                       children: [
-                        CircleAvatar(
-                          // User Icon
-                          radius: 30,
-                          // Add your user icon here
-                          backgroundColor: Colors.white,
+                        const Icon(
+                          Icons.person,
+                          size: 80,
+                          color: Colors.white,
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'Hi ${userAuth.username}!',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
                             ),
                           ],
                         ),
@@ -72,55 +72,63 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Positioned(
-                top: 110,
+                top: 130,
                 child: Container(
-                  child: Text(
+                  child: const Text(
                     "You can improve every skill!",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
               ),
               Positioned(
-                top: 140, // Adjust the top position based on your design
+                top: 170, // Adjust the top position based on your design
                 left: 0,
-                child: Container(
+                child: SizedBox(
                   height: 80,
                   width: MediaQuery.of(context).size.width,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: [
-                      _buildButton("Writing"),
-                      _buildButton("Listening"),
-                      _buildButton("Reading"),
-                      _buildButton("Speaking"),
+                      Container(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                          child: _buildButton("Writing",'/writing')),
+                      Container(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                          child: _buildButton("Reading", '/reading')),
+                      Container(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                          child: _buildButton("Speaking", '/speaking')),
+                      Container(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                          child: _buildButton("Listening", 'listening')),
                     ],
                   ),
                 ),
               ),
               Positioned(
-                top: 380,
+                top: 300,
                 child: Container(
-                  child: Text(
+                  child: const Text(
                     "You can learn all of these tenses!",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
               ),
               Positioned(
-                top: 400, // Adjust the top position based on your design
+                top: 340, // Adjust the top position based on your design
                 left: 0,
-                child: Container(
+                child: SizedBox(
                   height: 500,
                   width: MediaQuery.of(context).size.width,
                   child: ListView(
                     children: [
-                      _buildVerticalButton("Past Simple"),
-                      _buildVerticalButton("Past Continuous"),
-                      _buildVerticalButton("Present Simple"),
-                      _buildVerticalButton("Present Continuos"),
-                      _buildVerticalButton("Present Perfect"),
-                      _buildVerticalButton("Future Perfect"),
-                      // Add more items as needed
+                          _buttonEdited('Past Simple', '../assets/happy_woman.png'),
+                          _buttonEdited('Past Continuos', '../assets/girl_reading.jpg'),
+                          _buttonEdited('Past Perfect', '../assets/green.jpeg'),
+                          _buttonEdited('Present Simple', '../assets/guy_dog.jpg'),
+                          _buttonEdited('Present Continuos', '../assets/home.jpeg'),
+                          _buttonEdited('Present perfect', '../assets/bus.jpeg'),
+                      _buttonEdited('Future simple', '../assets/threek.jpeg')
                     ],
                   ),
                 ),
@@ -133,12 +141,12 @@ class _HomeState extends State<Home> {
         backgroundColor: const Color.fromARGB(255, 55, 57, 58),
         child: ListView(
           children: [
-            DrawerHeader(
+            const DrawerHeader(
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 101, 0, 148),
+                color: Color.fromARGB(255, 157, 44, 209),
               ),
               child: Text(
-                'Drawer Header',
+                'My section',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -146,17 +154,21 @@ class _HomeState extends State<Home> {
               ),
             ),
             ListTile(
-              title: Text('My tasks', style: TextStyle(color: Colors.white, fontSize: 20),),
+              title: const Text(
+                'My tasks',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
               onTap: () {
-                // Handle books option
-                Navigator.pop(context); // Close the drawer
+                Navigator.pushNamed(context, '/tasks');
               },
             ),
             ListTile(
-              title: Text('My books', style: TextStyle(color: Colors.white, fontSize: 20),),
+              title: const Text(
+                'My books',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
               onTap: () {
-                // Handle books option
-                Navigator.pushNamed(context, '/books'); // Close the drawer
+                Navigator.pushNamed(context, '/books');
               },
             ),
           ],
@@ -165,39 +177,89 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget _buildButton(String text) {
+  Widget _buttonEdited(String text, String src) {
     return Container(
-      margin: EdgeInsets.only(right: 12),
-      width: 120,
-      child: ElevatedButton(
-        onPressed: () {
-          // Handle button press
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color.fromARGB(255, 101, 0, 148),
-        ),
-        child: Text(text),
-      ),
-    );
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+        child: ImageBackgroundButton(
+          onPressed: () {},
+          image:  AssetImage(src),
+          child: Text(text,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+            ),
+          ),
+        ));
   }
 
-  Widget _buildVerticalButton(String text) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 8),
+  Widget _buildButton(String text,String toGo ) {
+    return SizedBox(
+      width: 130,
       child: ElevatedButton(
         onPressed: () {
-          // Handle button press
+          Navigator.pushNamed(context, toGo);
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color.fromARGB(255, 101, 0, 148),
+          backgroundColor: Colors.transparent, // Clear the background color
+          foregroundColor: Colors.white, // Text color
+          padding: const EdgeInsets.symmetric(
+              vertical: 0), // Adjust padding as needed
+          shape: RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.circular(10.0), // Adjust border radius as needed
+          ),
+          elevation: 0, // Remove the button elevation
         ),
         child: Container(
-          height: 80, // Adjust the height as needed
+          decoration: BoxDecoration(
+            color: Colors.black
+                .withOpacity(0.9), // Match the button's border radius
+            image: DecorationImage(
+              image: const AssetImage(
+                  '../assets/sky.jpeg'), // Replace with your image path
+              fit: BoxFit.fill, // Adjust the BoxFit property as needed
+              colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.5),
+                BlendMode.srcOver,
+              ),
+            ),
+          ),
           child: Center(
             child: Text(
               text,
               textAlign: TextAlign.center,
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ImageBackgroundButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final ImageProvider<Object> image;
+  final Widget child;
+
+  const ImageBackgroundButton({
+    required this.onPressed,
+    required this.image,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onPressed,
+        child: Ink.image(
+          image: image,
+          fit: BoxFit.cover,
+          child: Container(
+            height: 90,
+            color: Colors.black.withOpacity(0.7),
+            child: Center(child: child),
           ),
         ),
       ),

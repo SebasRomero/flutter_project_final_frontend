@@ -5,21 +5,35 @@ import 'package:frontend_flutter/auth/context.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
-class CreateBook extends StatefulWidget {
-  const CreateBook({super.key});
+class CreateTask extends StatefulWidget {
+  const CreateTask({super.key});
 
   @override
-  State<CreateBook> createState() => _CreateBookState();
+  State<CreateTask> createState() => _CreateTaskState();
 }
 
-class _CreateBookState extends State<CreateBook> {
-  TextEditingController controllerName = TextEditingController();
-  TextEditingController controllerAuthor = TextEditingController();
+class _CreateTaskState extends State<CreateTask> {
+  TextEditingController controllerTitle = TextEditingController();
+  TextEditingController controllerDescription = TextEditingController();
+  
+  bool isChecked = false;
+  Color getColor(Set<MaterialState> states) {
+    const Set<MaterialState> interactiveStates = <MaterialState>{
+      MaterialState.pressed,
+      MaterialState.hovered,
+      MaterialState.focused,
+    };
+    
+    if (states.any(interactiveStates.contains)) {
+      return Colors.blue;
+    }
+    return const Color.fromARGB(255, 157, 44, 209);
+  }
 
   void clearFields() {
     setState(() {
-      controllerName.clear();
-      controllerAuthor.clear();
+      controllerTitle.clear();
+      controllerDescription.clear();
     });
   }
 
@@ -85,31 +99,50 @@ class _CreateBookState extends State<CreateBook> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 80),
-                          child: const Text("Register a new book",
+                          child: const Text("Register a new task",
                               style:
                                   TextStyle(fontSize: 50, color: Colors.white)),
                         ),
                         Container(
                           padding: const EdgeInsets.all(5),
                           child: fieldsForm(
-                              controllerName,
-                              "Name",
+                              controllerTitle,
+                              "Title",
                               TextInputType.text,
-                              "Please, insert a valid name",
-                              Icons.title,
+                              "Please, insert a valid title",
+                              Icons.book,
                               "Reading alone"),
                         ),
                         Container(
                           padding: const EdgeInsets.all(5),
                           child: fieldsForm(
-                              controllerAuthor,
-                              "Author name",
+                              controllerDescription,
+                              "Description",
                               TextInputType.text,
-                              "Please, insert a valid author name",
-                              Icons.person,
-                              "John Doe"),
+                              "",
+                              Icons.text_snippet_outlined,
+                              "Finish my today's lesson about present simple"),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(5),
+                          child: const Text(
+                            "Is done already?",
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
+                        ),
+                        Container(
+                          child: Checkbox(
+                            checkColor: Colors.white,
+                            fillColor:
+                                MaterialStateProperty.resolveWith(getColor),
+                            value: isChecked,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                isChecked = value!;
+                              });
+                            },
+                          ),
                         ),
                         Container(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -129,7 +162,7 @@ class _CreateBookState extends State<CreateBook> {
                                             BorderRadius.circular(30))),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    registerBook();
+                                    registerTask();
                                   }
                                 },
                                 child: const Text("Register"),
@@ -141,7 +174,7 @@ class _CreateBookState extends State<CreateBook> {
                                     side: const BorderSide(
                                         width: 1,
                                         color:
-                                            Color.fromARGB(255, 157, 44, 209)),
+                                             Color.fromARGB(255, 157, 44, 209)),
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(30))),
@@ -160,7 +193,7 @@ class _CreateBookState extends State<CreateBook> {
                             children: [
                               FloatingActionButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, '/books');
+                                  Navigator.pushNamed(context, '/tasks');
                                 },
                                 backgroundColor:
                                     const Color.fromARGB(255, 157, 44, 209),
@@ -182,17 +215,17 @@ class _CreateBookState extends State<CreateBook> {
     return TextFormField(
         style: const TextStyle(color: Colors.white),
         controller: cn,
-        cursorColor: const Color.fromARGB(255, 101, 0, 148),
+        cursorColor: const Color.fromARGB(255, 157, 44, 209),
         keyboardType: type,
         decoration: InputDecoration(
             hintText: hint,
             hintStyle: const TextStyle(color: Color.fromARGB(255, 94, 88, 88)),
             icon: Icon(iconArgument),
-            iconColor: const Color.fromARGB(255, 101, 0, 148),
+            iconColor: const Color.fromARGB(255, 157, 44, 209),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25.0),
               borderSide: const BorderSide(
-                color: Color.fromARGB(255, 101, 0, 148),
+                color: Color.fromARGB(255, 157, 44, 209),
                 width: 2.0,
               ),
             ),
@@ -211,16 +244,18 @@ class _CreateBookState extends State<CreateBook> {
         });
   }
 
-  void registerBook() async {
+  void registerTask() async {
     UserAuthentication userAuth = Provider.of<UserAuthentication>(context, listen: false);
     String jwtToken = userAuth.accessToken!;
-    String name = controllerName.text;
-    String author = controllerAuthor.text;
+    String title = controllerTitle.text;
+    String description = controllerDescription.text;
+    bool isDone = isChecked;
     Map<dynamic, dynamic> request = {
-      "name": name,
-      "author": author,
+      "title": title,
+      "description": description,
+      "done": isDone.toString()
     };
-    final url = Uri.parse("http://localhost:3000/books");
+    final url = Uri.parse("http://localhost:3000/tasks");
     await http.post(url, body: request, headers:{ HttpHeaders.authorizationHeader: "Bearer $jwtToken"});
     _showMyDialog();
   }
@@ -231,11 +266,11 @@ Future<void> _showMyDialog() async {
     barrierDismissible: false, // user must tap button!
     builder: (BuildContext alertContext) {
       return AlertDialog(
-        title: const Text('New book added!'),
+        title: const Text('New task added!'),
         content: const SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
-              Text('Your bookstore is increasing!'),
+              Text('Do not forget to do it!'),
             ],
           ),
         ),
@@ -244,7 +279,7 @@ Future<void> _showMyDialog() async {
             child: const Text('Ok'),
             onPressed: () {
               Navigator.of(alertContext).pop();
-              Navigator.pushNamed(context, '/books');
+              Navigator.pushNamed(context, '/tasks');
             },
           ),
         ],
