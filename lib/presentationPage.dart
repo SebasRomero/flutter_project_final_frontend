@@ -24,10 +24,10 @@ class _PresentationState extends State<Presentation> {
               Container(
                 padding: EdgeInsets.fromLTRB(
                     0, 0, 0, MediaQuery.of(context).size.height - 300),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("English App",
+                    Text("English App",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 40,
@@ -55,8 +55,8 @@ class _PresentationState extends State<Presentation> {
                       width: 2.0,
                     ),
                   ),
-                  child: ClipOval(
-                      child: const Image(
+                  child: const ClipOval(
+                      child: Image(
                     image: AssetImage('../assets/girl_mobile.jpg'),
                     width: 400,
                     height: 400,
@@ -81,22 +81,24 @@ class _PresentationState extends State<Presentation> {
                         onPressed: () {
                           Navigator.pushNamed(context, '/login');
                         },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 157, 44, 209) ),
                         child: const Text(
                           "Login",
                           style: TextStyle(color: Colors.white),
                         ),
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 101, 0, 148) )),
+                        ),
                     ElevatedButton(
                         onPressed: () {
                           Navigator.pushNamed(context, '/signup');
                         },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 157, 44, 209)),
                         child: const Text(
                           "Sign up",
                           style: TextStyle(color: Colors.white),
                         ),
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 101, 0, 148) )),
+                        ),
                   ]),
             )
           ],

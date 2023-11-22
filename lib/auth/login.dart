@@ -35,7 +35,7 @@ class _LoginState extends State<Login> {
                         child: Container(
                             width: MediaQuery.of(context).size.width + 100,
                             height: MediaQuery.of(context).size.width + 70,
-                            color: Color.fromARGB(255, 101, 0, 148)),
+                            color: const Color.fromARGB(255, 157, 44, 209)),
                       ),
                     ),
                     Positioned(
@@ -109,11 +109,11 @@ class _LoginState extends State<Login> {
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor:
-                                        const Color.fromARGB(255, 101, 0, 148),
+                                        const Color.fromARGB(255, 157, 44, 209),
                                     side: const BorderSide(
                                         width: 1,
                                         color:
-                                            Color.fromARGB(255, 101, 0, 148)),
+                                             Color.fromARGB(255, 157, 44, 209)),
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(30))),
@@ -135,7 +135,7 @@ class _LoginState extends State<Login> {
                                   Navigator.pushNamed(context, '/');
                                 },
                                 backgroundColor:
-                                    const Color.fromARGB(255, 101, 0, 148),
+                                    const Color.fromARGB(255, 157, 44, 209),
                                 child: const Icon(Icons.arrow_back_ios),
                               )
                             ],
@@ -154,22 +154,22 @@ class _LoginState extends State<Login> {
     return TextFormField(
         style: const TextStyle(color: Colors.white),
         controller: cn,
-        cursorColor: const Color.fromARGB(255, 101, 0, 148),
+        cursorColor: const Color.fromARGB(255, 157, 44, 209),
         keyboardType: type,
         decoration: InputDecoration(
             hintText: hint,
             hintStyle: const TextStyle(color: Color.fromARGB(255, 94, 88, 88)),
             icon: Icon(iconArgument),
-            iconColor: const Color.fromARGB(255, 101, 0, 148),
+            iconColor: const Color.fromARGB(255, 157, 44, 209),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25.0),
               borderSide: const BorderSide(
-                color: Color.fromARGB(255, 101, 0, 148),
+                color:  Color.fromARGB(255, 157, 44, 209),
                 width: 2.0,
               ),
             ),
             focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Color.fromARGB(255, 101, 0, 148)),
+                borderSide: BorderSide(color:  Color.fromARGB(255, 157, 44, 209)),
                 borderRadius: BorderRadius.all(Radius.circular(20))),
             labelText: label,
             labelStyle: const TextStyle(color: Colors.white),
