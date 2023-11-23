@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:frontend_flutter/auth/context.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -10,7 +13,6 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-
   TextEditingController controllerEmail = TextEditingController();
   TextEditingController controllerName = TextEditingController();
   TextEditingController controllerPassword = TextEditingController();
@@ -34,9 +36,9 @@ class _RegisterState extends State<Register> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
                         child: Container(
-                          width: MediaQuery.of(context).size.width + 100,
-                          height: MediaQuery.of(context).size.width + 70,
-                          color: Color.fromARGB(255, 101, 0, 148)                    ),
+                            width: MediaQuery.of(context).size.width + 100,
+                            height: MediaQuery.of(context).size.width + 70,
+                            color: Color.fromARGB(255, 101, 0, 148)),
                       ),
                     ),
                     Positioned(
@@ -86,11 +88,11 @@ class _RegisterState extends State<Register> {
                           padding: const EdgeInsets.all(5),
                           child: fieldsForm(
                               controllerEmail,
-                              "Email",
+                              "Username",
                               TextInputType.text,
-                              "Please, insert a valid email",
+                              "Please, insert a valid username",
                               Icons.person,
-                              "johndoe@hotmail.com"),
+                              "johndoe22", false),
                         ),
                         Container(
                           padding: const EdgeInsets.all(5),
@@ -100,7 +102,7 @@ class _RegisterState extends State<Register> {
                               TextInputType.name,
                               "Please, insert a valid name",
                               Icons.person,
-                              "John"),
+                              "John", false),
                         ),
                         Container(
                           padding: const EdgeInsets.all(5),
@@ -110,7 +112,7 @@ class _RegisterState extends State<Register> {
                               TextInputType.text,
                               "Please, insert a valid phone",
                               Icons.phone,
-                              "3001132445"),
+                              "3001132445", false),
                         ),
                         Container(
                           padding: const EdgeInsets.all(5),
@@ -120,7 +122,7 @@ class _RegisterState extends State<Register> {
                               TextInputType.text,
                               "Please, insert a valid password",
                               Icons.password,
-                              ""),
+                              "", true),
                         ),
                         Container(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -130,7 +132,7 @@ class _RegisterState extends State<Register> {
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor:
-                                        const Color.fromARGB(255, 101, 0, 148) ,
+                                        const Color.fromARGB(255, 101, 0, 148),
                                     side: const BorderSide(
                                         width: 1,
                                         color:
@@ -171,26 +173,27 @@ class _RegisterState extends State<Register> {
   }
 
   Widget fieldsForm(TextEditingController cn, String label, TextInputType type,
-      String err, IconData iconArgument, String hint) {
+      String err, IconData iconArgument, String hint, bool obscureT) {
     return TextFormField(
         style: const TextStyle(color: Colors.white),
         controller: cn,
-        cursorColor: const Color.fromARGB(255, 101, 0, 148) ,
+        cursorColor: const Color.fromARGB(255, 101, 0, 148),
+        obscureText: obscureT,
         keyboardType: type,
         decoration: InputDecoration(
             hintText: hint,
             hintStyle: const TextStyle(color: Color.fromARGB(255, 94, 88, 88)),
             icon: Icon(iconArgument),
-            iconColor: const Color.fromARGB(255, 101, 0, 148) ,
+            iconColor: const Color.fromARGB(255, 101, 0, 148),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25.0),
               borderSide: const BorderSide(
-                color: Color.fromARGB(255, 101, 0, 148) ,
+                color: Color.fromARGB(255, 101, 0, 148),
                 width: 2.0,
               ),
             ),
             focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Color.fromARGB(255, 101, 0, 148) ),
+                borderSide: BorderSide(color: Color.fromARGB(255, 101, 0, 148)),
                 borderRadius: BorderRadius.all(Radius.circular(20))),
             labelText: label,
             labelStyle: const TextStyle(color: Colors.white),
@@ -207,42 +210,63 @@ class _RegisterState extends State<Register> {
   void registerUser() async {
     String email = controllerEmail.text;
     String name = controllerName.text;
-    String phone =  controllerPhone.text;
+    String phone = controllerPhone.text;
     String password = controllerPassword.text;
 
     Map<dynamic, dynamic> request = {
       "username": email,
       "name": name,
+      "password": password,
       "phone": phone,
-      "password": password  
     };
-    final url = Uri.parse("http://localhost:3000/signin");
+    final url = Uri.parse("http://localhost:3000/signup");
     var response = await http.post(url, body: request);
-        print(response);
-    if (response.statusCode == HttpStatus.accepted) {
-    showAlert();
-    // Navigator.pushNamed(context, '/home');
+    print(response.statusCode);
+    print(response.body);
+    if (response.statusCode == HttpStatus.created) {
+      _showMyDialog();
+      final Map<String, dynamic> responseData = jsonDecode(response.body);
+      String accessToken = responseData['access_token'];
+      String username = responseData['username'];
+      UserAuthentication userAuth =
+          Provider.of<UserAuthentication>(context, listen: false);
+
+      userAuth.setAuthenticationData(accessToken, username);
+    }
+    ;
+    if (response.statusCode == HttpStatus.badRequest) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('User already exist'),
+        backgroundColor: Colors.red,
+      ));
     }
   }
 
-  showAlert() {
-    Widget ok = TextButton(
-        onPressed: () {
-          // Navigator.pop(context);
-          // Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-        },
-        child: const Text("Aceptar"));
-
-    AlertDialog al = AlertDialog(
-      title: const Text("Message"),
-      content: const Text("User created succesfully"),
-      actions: [ok],
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext alertContext) {
+        return AlertDialog(
+          title: const Text('User created succesfully'),
+          content: const SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('It is time to learn!'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () {
+                Navigator.of(alertContext).pop();
+                Navigator.pushNamed(context, '/home');
+              },
+            ),
+          ],
+        );
+      },
     );
-
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return al;
-        });
   }
 }
