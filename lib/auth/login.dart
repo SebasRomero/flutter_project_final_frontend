@@ -85,11 +85,11 @@ class _LoginState extends State<Login> {
                           padding: const EdgeInsets.all(5),
                           child: fieldsForm(
                               controllerEmail,
-                              "Email",
+                              "Username",
                               TextInputType.text,
-                              "Please, insert a valid email",
+                              "Please, insert a valid username",
                               Icons.person,
-                              "johndoe@hotmail.com"),
+                              "johndoe22", false),
                         ),
                         Container(
                           padding: const EdgeInsets.all(5),
@@ -99,7 +99,7 @@ class _LoginState extends State<Login> {
                               TextInputType.text,
                               "Please, insert a valid password",
                               Icons.password,
-                              ""),
+                              "", true),
                         ),
                         Container(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -150,10 +150,11 @@ class _LoginState extends State<Login> {
   }
 
   Widget fieldsForm(TextEditingController cn, String label, TextInputType type,
-      String err, IconData iconArgument, String hint) {
+      String err, IconData iconArgument, String hint, bool obscureT) {
     return TextFormField(
         style: const TextStyle(color: Colors.white),
         controller: cn,
+        obscureText: obscureT,
         cursorColor: const Color.fromARGB(255, 157, 44, 209),
         keyboardType: type,
         decoration: InputDecoration(
