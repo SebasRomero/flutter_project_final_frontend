@@ -14,9 +14,13 @@ import 'package:frontend_flutter/skills/writing.dart';
 import 'package:frontend_flutter/tasks/createTask.dart';
 import 'package:frontend_flutter/tasks/editTask.dart';
 import 'package:frontend_flutter/tasks/tasksMain.dart';
+import 'package:frontend_flutter/tenses/future_simple.dart';
 import 'package:frontend_flutter/tenses/past_continuos.dart';
 import 'package:frontend_flutter/tenses/past_perfect.dart';
 import 'package:frontend_flutter/tenses/past_simple.dart';
+import 'package:frontend_flutter/tenses/present_continuos.dart';
+import 'package:frontend_flutter/tenses/present_perfect.dart';
+import 'package:frontend_flutter/tenses/present_simple.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -72,6 +76,10 @@ class _EnglishAppState extends State<EnglishApp> {
           "/past_simple": (context) => const PastSimple(),
           "/past_continuos": (context) => const PastContinuous(),
           "/past_perfect": (context) => const PastPerfect(),
+          "/present_simple": (context) => const PresentSimple(),
+          "/present_continuos": (context) => const PresentContinuous(),
+          "/present_perfect": (context) => const PresentPerfect(),
+          "/future_simple": (context) => const FutureSimple(),
         },
       ),
     );

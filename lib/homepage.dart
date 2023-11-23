@@ -144,64 +144,64 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      endDrawer: 
-      Drawer(
-  backgroundColor: const Color.fromARGB(255, 55, 57, 58),
-  child: Column(
-    children: [
-      Expanded(
-        child: ListView(
+      endDrawer: Drawer(
+        backgroundColor: const Color.fromARGB(255, 55, 57, 58),
+        child: Column(
           children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Color.fromARGB(255, 157, 44, 209),
-              ),
-              child: Text(
-                'My section',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
+            Expanded(
+              child: ListView(
+                children: [
+                  const DrawerHeader(
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 157, 44, 209),
+                    ),
+                    child: Text(
+                      'My section',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    title: const Text(
+                      'My tasks',
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    onTap: () {
+                      Navigator.pushNamed(context, '/tasks');
+                    },
+                  ),
+                  ListTile(
+                    title: const Text(
+                      'My books',
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    onTap: () {
+                      Navigator.pushNamed(context, '/books');
+                    },
+                  ),
+                ],
               ),
             ),
+            // Log Out button at the bottom
             ListTile(
               title: const Text(
-                'My tasks',
+                'Log Out',
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               onTap: () {
-                Navigator.pushNamed(context, '/tasks');
-              },
-            ),
-            ListTile(
-              title: const Text(
-                'My books',
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-              onTap: () {
-                Navigator.pushNamed(context, '/books');
+                // Perform log out logic here
+                // Example: Clear authentication token, user data, etc.
+
+                // Navigate to the "/" route and remove context
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/', (route) => false);
               },
             ),
           ],
         ),
       ),
-      // Log Out button at the bottom
-      ListTile(
-        title: const Text(
-          'Log Out',
-          style: TextStyle(color: Colors.white, fontSize: 20),
-        ),
-        onTap: () {
-          // Perform log out logic here
-          // Example: Clear authentication token, user data, etc.
-
-          // Navigate to the "/" route and remove context
-          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-        },
-      ),
-    ],
-  ),
-),
     );
   }
 
