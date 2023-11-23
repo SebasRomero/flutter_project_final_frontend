@@ -56,7 +56,7 @@ class _EnglishAppState extends State<EnglishApp> {
       child: MaterialApp(
         title: 'Your App',
         routes: {
-          "/": (context) => const Home(),
+          "/": (context) => const Presentation(),
           "/signup": (context) => const Register(),
           "/login": (context) => const Login(),
           "/home": (context) => const Home(),
@@ -68,11 +68,12 @@ class _EnglishAppState extends State<EnglishApp> {
           "/tasks": (context) => const TasksHome(),
           "/tasks/create": (context) => const CreateTask(),
           "/tasks/edit": (context) => const EditTask(),
-
+          //skills
           "/writing": (context) => const Writing(),
           "/speaking": (context) => const Speaking(),
           "/reading": (context) => const Reading(),
           "/listening": (context) => const Listening(),
+          //tenses
           "/past_simple": (context) => const PastSimple(),
           "/past_continuos": (context) => const PastContinuous(),
           "/past_perfect": (context) => const PastPerfect(),
