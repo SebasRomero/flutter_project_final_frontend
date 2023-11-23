@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(Writing());
+  runApp(Listening());
 }
 
-class Writing extends StatelessWidget {
-  const Writing({Key? key});
+class Listening extends StatelessWidget {
+  const Listening({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text("Writing"),
+          title: const Text("Listening"),
           backgroundColor: const Color.fromARGB(255, 55, 57, 58),
           shadowColor: const Color.fromARGB(255, 55, 57, 58),
           leading: IconButton(
@@ -22,24 +22,26 @@ class Writing extends StatelessWidget {
             icon: Icon(Icons.arrow_back_ios),
           ),
         ),
-        body: WritingContain(),
+        body: ListeningContain(),
       ),
     );
   }
 }
 
-class WritingContain extends StatelessWidget {
+class ListeningContain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Color textColor = Colors.white; // Establecer el color de texto deseado
+
     return Container(
-      color: Color.fromARGB(255, 55, 57, 58), // Color outside the container
+      color: Color.fromARGB(255, 55, 57, 58), // Color fuera del contenedor
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
         child: Container(
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
             color:
-                Color.fromARGB(255, 48, 50, 51), // Color inside the container
+                Color.fromARGB(255, 48, 50, 51), // Color dentro del contenedor
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
@@ -47,9 +49,9 @@ class WritingContain extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Welcome to English Learning',
+                'Improve Your Listening Skills',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: textColor,
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),
@@ -57,52 +59,53 @@ class WritingContain extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                'Start your journey to master English writing with our interactive lessons and exercises. Whether you are a beginner or looking to enhance your skills, we have resources for everyone.',
+                'Enhance your listening comprehension with our diverse collection of audio materials. Whether you are a beginner or an advanced listener, our resources cover a wide range of topics and difficulty levels.',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: textColor,
                   fontSize: 18,
                 ),
                 textAlign: TextAlign.justify,
               ),
               SizedBox(height: 40),
               Text(
-                'Interactive Lessons',
+                'Featured Audio',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: textColor,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(height: 10),
-              LessonItem(
-                  title: 'Lesson 1: Introduction to Writing',
-                  level: 'Beginner',
+              AudioItem(
+                  title: 'Podcast: The Art of Communication',
+                  duration: '15 mins',
                   color: Colors.purple),
-              LessonItem(
-                  title: 'Lesson 2: Crafting Engaging Stories',
-                  level: 'Intermediate',
+              AudioItem(
+                  title: 'Language Learning Dialogue: Everyday Situations',
+                  duration: '20 mins',
                   color: Colors.purple),
-              LessonItem(
-                  title: 'Lesson 3: Advanced Composition Techniques',
-                  level: 'Advanced',
+              AudioItem(
+                  title: 'News Brief: Current Events',
+                  duration: '10 mins',
                   color: Colors.purple),
               SizedBox(height: 40),
               Text(
-                'Practice Writing',
+                'Listening Exercises',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: textColor,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(height: 10),
-              PracticeItem(
-                  title: 'Write a Short Essay on a Chosen Topic',
-                  description: 'Express your thoughts and opinions.',
+              ExerciseItem(
+                  title: 'Listening Comprehension Quiz: Interviews',
+                  description: 'Test your understanding of spoken interviews.',
                   color: Colors.purple),
-              PracticeItem(
-                  title: 'Grammar and Vocabulary Exercises',
-                  description: 'Enhance your language skills.',
+              ExerciseItem(
+                  title: 'Audio Transcript Analysis: Educational Lecture',
+                  description:
+                      'Analyze and understand the content of an educational lecture.',
                   color: Colors.purple),
             ],
           ),
@@ -112,13 +115,13 @@ class WritingContain extends StatelessWidget {
   }
 }
 
-class LessonItem extends StatelessWidget {
+class AudioItem extends StatelessWidget {
   final String title;
-  final String level;
+  final String duration;
   final Color color;
 
-  const LessonItem(
-      {required this.title, required this.level, required this.color});
+  const AudioItem(
+      {required this.title, required this.duration, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -127,21 +130,21 @@ class LessonItem extends StatelessWidget {
         title,
         style: TextStyle(color: color, fontWeight: FontWeight.bold),
       ),
-      subtitle: Text('Level: $level',
+      subtitle: Text('Duration: $duration',
           style: TextStyle(color: color.withOpacity(0.8))),
       onTap: () {
-        // Add functionality to navigate to the lesson details
+        // Agregar funcionalidad para reproducir el audio
       },
     );
   }
 }
 
-class PracticeItem extends StatelessWidget {
+class ExerciseItem extends StatelessWidget {
   final String title;
   final String description;
   final Color color;
 
-  const PracticeItem(
+  const ExerciseItem(
       {required this.title, required this.description, required this.color});
 
   @override
@@ -154,7 +157,7 @@ class PracticeItem extends StatelessWidget {
       subtitle:
           Text(description, style: TextStyle(color: color.withOpacity(0.8))),
       onTap: () {
-        // Add functionality to start the writing practice
+        // Agregar funcionalidad para comenzar el ejercicio de escucha
       },
     );
   }

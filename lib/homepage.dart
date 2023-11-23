@@ -91,7 +91,7 @@ class _HomeState extends State<Home> {
                     children: [
                       Container(
                           padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                          child: _buildButton("Writing",'/writing')),
+                          child: _buildButton("Writing", '/writing')),
                       Container(
                           padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                           child: _buildButton("Reading", '/reading')),
@@ -100,7 +100,7 @@ class _HomeState extends State<Home> {
                           child: _buildButton("Speaking", '/speaking')),
                       Container(
                           padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                          child: _buildButton("Listening", 'listening')),
+                          child: _buildButton("Listening", '/listening')),
                     ],
                   ),
                 ),
@@ -122,13 +122,20 @@ class _HomeState extends State<Home> {
                   width: MediaQuery.of(context).size.width,
                   child: ListView(
                     children: [
-                          _buttonEdited('Past Simple', '../assets/happy_woman.png'),
-                          _buttonEdited('Past Continuos', '../assets/girl_reading.jpg'),
-                          _buttonEdited('Past Perfect', '../assets/green.jpeg'),
-                          _buttonEdited('Present Simple', '../assets/guy_dog.jpg'),
-                          _buttonEdited('Present Continuos', '../assets/home.jpeg'),
-                          _buttonEdited('Present perfect', '../assets/bus.jpeg'),
-                      _buttonEdited('Future simple', '../assets/threek.jpeg')
+                      _buttonEdited('Past Simple', '../assets/happy_woman.png',
+                          '/past_simple'),
+                      _buttonEdited('Past Continuos',
+                          '../assets/girl_reading.jpg', '/past_continuos'),
+                      _buttonEdited('Past Perfect', '../assets/green.jpeg',
+                          '/past_perfect'),
+                      _buttonEdited('Present Simple', '../assets/guy_dog.jpg',
+                          '/present_simple'),
+                      _buttonEdited('Present Continuos', '../assets/home.jpeg',
+                          '/present_continuos'),
+                      _buttonEdited('Present perfect', '../assets/bus.jpeg',
+                          '/present_perfect'),
+                      _buttonEdited('Future simple', '../assets/threek.jpeg',
+                          '/future_simple')
                     ],
                   ),
                 ),
@@ -177,13 +184,16 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget _buttonEdited(String text, String src) {
+  Widget _buttonEdited(String text, String src, String route) {
     return Container(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
         child: ImageBackgroundButton(
-          onPressed: () {},
-          image:  AssetImage(src),
-          child: Text(text,
+          onPressed: () {
+            Navigator.pushNamed(context, route);
+          },
+          image: AssetImage(src),
+          child: Text(
+            text,
             style: const TextStyle(
               color: Colors.white,
               fontSize: 16,
@@ -192,7 +202,7 @@ class _HomeState extends State<Home> {
         ));
   }
 
-  Widget _buildButton(String text,String toGo ) {
+  Widget _buildButton(String text, String toGo) {
     return SizedBox(
       width: 130,
       child: ElevatedButton(
