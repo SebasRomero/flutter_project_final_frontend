@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(Writing());
+  runApp(PresentSimple());
 }
 
-class Writing extends StatelessWidget {
-  const Writing({Key? key});
+class PresentSimple extends StatelessWidget {
+  const PresentSimple({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text("Writing"),
+          title: const Text("Present Simple"),
           backgroundColor: const Color.fromARGB(255, 55, 57, 58),
           shadowColor: const Color.fromARGB(255, 55, 57, 58),
           leading: IconButton(
@@ -22,24 +22,26 @@ class Writing extends StatelessWidget {
             icon: Icon(Icons.arrow_back_ios),
           ),
         ),
-        body: WritingContain(),
+        body: PresentSimpleContent(),
       ),
     );
   }
 }
 
-class WritingContain extends StatelessWidget {
+class PresentSimpleContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Color textColor = Colors.white; // Establecer el color de texto deseado
+    Color purpleColor = Colors.purple; // Color morado
+
     return Container(
-      color: Color.fromARGB(255, 55, 57, 58), // Color outside the container
+      color: Color.fromARGB(255, 55, 57, 58), // Color fuera del contenedor
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
         child: Container(
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color:
-                Color.fromARGB(255, 48, 50, 51), // Color inside the container
+            color: Color.fromARGB(255, 48, 50, 51), // Color dentro del contenedor
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
@@ -47,9 +49,9 @@ class WritingContain extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Welcome to English Learning',
+                'Learn Present Simple Tense',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: textColor,
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),
@@ -57,53 +59,38 @@ class WritingContain extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                'Start your journey to master English writing with our interactive lessons and exercises. Whether you are a beginner or looking to enhance your skills, we have resources for everyone.',
+                'Explore the usage and structure of the present simple tense in English. Whether you are a beginner or looking to refine your skills, our lessons and exercises will help you master this fundamental grammatical aspect.',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: textColor,
                   fontSize: 18,
                 ),
                 textAlign: TextAlign.justify,
               ),
               SizedBox(height: 40),
               Text(
-                'Interactive Lessons',
+                'Present Simple Lessons',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: textColor,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(height: 10),
-              LessonItem(
-                  title: 'Lesson 1: Introduction to Writing',
-                  level: 'Beginner',
-                  color: Colors.purple),
-              LessonItem(
-                  title: 'Lesson 2: Crafting Engaging Stories',
-                  level: 'Intermediate',
-                  color: Colors.purple),
-              LessonItem(
-                  title: 'Lesson 3: Advanced Composition Techniques',
-                  level: 'Advanced',
-                  color: Colors.purple),
+              PresentSimpleLesson(title: 'Introduction to Present Simple', level: 'Beginner', color: purpleColor),
+              PresentSimpleLesson(title: 'Forming the Present Simple Tense', level: 'Intermediate', color: purpleColor),
+              PresentSimpleLesson(title: 'Using Present Simple in Context', level: 'Advanced', color: purpleColor),
               SizedBox(height: 40),
               Text(
-                'Practice Writing',
+                'Practice Present Simple',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: textColor,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(height: 10),
-              PracticeItem(
-                  title: 'Write a Short Essay on a Chosen Topic',
-                  description: 'Express your thoughts and opinions.',
-                  color: Colors.purple),
-              PracticeItem(
-                  title: 'Grammar and Vocabulary Exercises',
-                  description: 'Enhance your language skills.',
-                  color: Colors.purple),
+              PresentSimplePractice(title: 'Complete the Sentences with Present Simple', description: 'Fill in the blanks with the correct present simple form of the verbs.', color: purpleColor),
+              PresentSimplePractice(title: 'Describe Your Daily Routine', description: 'Narrate your daily activities using present simple tense.', color: purpleColor),
             ],
           ),
         ),
@@ -112,13 +99,12 @@ class WritingContain extends StatelessWidget {
   }
 }
 
-class LessonItem extends StatelessWidget {
+class PresentSimpleLesson extends StatelessWidget {
   final String title;
   final String level;
   final Color color;
 
-  const LessonItem(
-      {required this.title, required this.level, required this.color});
+  const PresentSimpleLesson({required this.title, required this.level, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -127,22 +113,20 @@ class LessonItem extends StatelessWidget {
         title,
         style: TextStyle(color: color, fontWeight: FontWeight.bold),
       ),
-      subtitle: Text('Level: $level',
-          style: TextStyle(color: color.withOpacity(0.8))),
+      subtitle: Text('Level: $level', style: TextStyle(color: color.withOpacity(0.8))),
       onTap: () {
-        // Add functionality to navigate to the lesson details
+        // Agregar funcionalidad para navegar a los detalles de la lección
       },
     );
   }
 }
 
-class PracticeItem extends StatelessWidget {
+class PresentSimplePractice extends StatelessWidget {
   final String title;
   final String description;
   final Color color;
 
-  const PracticeItem(
-      {required this.title, required this.description, required this.color});
+  const PresentSimplePractice({required this.title, required this.description, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -151,10 +135,9 @@ class PracticeItem extends StatelessWidget {
         title,
         style: TextStyle(color: color, fontWeight: FontWeight.bold),
       ),
-      subtitle:
-          Text(description, style: TextStyle(color: color.withOpacity(0.8))),
+      subtitle: Text(description, style: TextStyle(color: color.withOpacity(0.8))),
       onTap: () {
-        // Add functionality to start the writing practice
+        // Agregar funcionalidad para comenzar la práctica del presente simple
       },
     );
   }

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(Writing());
+  runApp(PastContinuous());
 }
 
-class Writing extends StatelessWidget {
-  const Writing({Key? key});
+class PastContinuous extends StatelessWidget {
+  const PastContinuous({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text("Writing"),
+          title: const Text("Past Continuous"),
           backgroundColor: const Color.fromARGB(255, 55, 57, 58),
           shadowColor: const Color.fromARGB(255, 55, 57, 58),
           leading: IconButton(
@@ -22,24 +22,27 @@ class Writing extends StatelessWidget {
             icon: Icon(Icons.arrow_back_ios),
           ),
         ),
-        body: WritingContain(),
+        body: PastContinuousContent(),
       ),
     );
   }
 }
 
-class WritingContain extends StatelessWidget {
+class PastContinuousContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Color textColor = Colors.white; // Establecer el color de texto deseado
+    Color purpleColor = Colors.purple; // Color morado
+
     return Container(
-      color: Color.fromARGB(255, 55, 57, 58), // Color outside the container
+      color: Color.fromARGB(255, 55, 57, 58), // Color fuera del contenedor
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
         child: Container(
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
             color:
-                Color.fromARGB(255, 48, 50, 51), // Color inside the container
+                Color.fromARGB(255, 48, 50, 51), // Color dentro del contenedor
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
@@ -47,9 +50,9 @@ class WritingContain extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Welcome to English Learning',
+                'Learn Past Continuous Tense',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: textColor,
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),
@@ -57,53 +60,54 @@ class WritingContain extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                'Start your journey to master English writing with our interactive lessons and exercises. Whether you are a beginner or looking to enhance your skills, we have resources for everyone.',
+                'Explore the usage and structure of the past continuous tense in English. Whether you are a beginner or looking to refine your skills, our lessons and exercises will help you master this important grammatical aspect.',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: textColor,
                   fontSize: 18,
                 ),
                 textAlign: TextAlign.justify,
               ),
               SizedBox(height: 40),
               Text(
-                'Interactive Lessons',
+                'Past Continuous Lessons',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: textColor,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(height: 10),
-              LessonItem(
-                  title: 'Lesson 1: Introduction to Writing',
+              PastContinuousLesson(
+                  title: 'Introduction to Past Continuous',
                   level: 'Beginner',
-                  color: Colors.purple),
-              LessonItem(
-                  title: 'Lesson 2: Crafting Engaging Stories',
+                  color: purpleColor),
+              PastContinuousLesson(
+                  title: 'Forming the Past Continuous Tense',
                   level: 'Intermediate',
-                  color: Colors.purple),
-              LessonItem(
-                  title: 'Lesson 3: Advanced Composition Techniques',
+                  color: purpleColor),
+              PastContinuousLesson(
+                  title: 'Using Past Continuous in Context',
                   level: 'Advanced',
-                  color: Colors.purple),
+                  color: purpleColor),
               SizedBox(height: 40),
               Text(
-                'Practice Writing',
+                'Practice Past Continuous',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: textColor,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(height: 10),
-              PracticeItem(
-                  title: 'Write a Short Essay on a Chosen Topic',
-                  description: 'Express your thoughts and opinions.',
-                  color: Colors.purple),
-              PracticeItem(
-                  title: 'Grammar and Vocabulary Exercises',
-                  description: 'Enhance your language skills.',
-                  color: Colors.purple),
+              PastContinuousPractice(
+                  title: 'Complete the Sentences with Past Continuous',
+                  description:
+                      'Fill in the blanks with the correct past continuous form of the verbs.',
+                  color: purpleColor),
+              PastContinuousPractice(
+                  title: 'Describe a Past Event Using Past Continuous',
+                  description: 'Narrate an event using past continuous tense.',
+                  color: purpleColor),
             ],
           ),
         ),
@@ -112,12 +116,12 @@ class WritingContain extends StatelessWidget {
   }
 }
 
-class LessonItem extends StatelessWidget {
+class PastContinuousLesson extends StatelessWidget {
   final String title;
   final String level;
   final Color color;
 
-  const LessonItem(
+  const PastContinuousLesson(
       {required this.title, required this.level, required this.color});
 
   @override
@@ -130,18 +134,18 @@ class LessonItem extends StatelessWidget {
       subtitle: Text('Level: $level',
           style: TextStyle(color: color.withOpacity(0.8))),
       onTap: () {
-        // Add functionality to navigate to the lesson details
+        // Agregar funcionalidad para navegar a los detalles de la lección
       },
     );
   }
 }
 
-class PracticeItem extends StatelessWidget {
+class PastContinuousPractice extends StatelessWidget {
   final String title;
   final String description;
   final Color color;
 
-  const PracticeItem(
+  const PastContinuousPractice(
       {required this.title, required this.description, required this.color});
 
   @override
@@ -154,7 +158,7 @@ class PracticeItem extends StatelessWidget {
       subtitle:
           Text(description, style: TextStyle(color: color.withOpacity(0.8))),
       onTap: () {
-        // Add functionality to start the writing practice
+        // Agregar funcionalidad para comenzar la práctica del pasado continuo
       },
     );
   }

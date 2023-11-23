@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(Writing());
+  runApp(PresentContinuous());
 }
 
-class Writing extends StatelessWidget {
-  const Writing({Key? key});
+class PresentContinuous extends StatelessWidget {
+  const PresentContinuous({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text("Writing"),
+          title: const Text("Present Continuous"),
           backgroundColor: const Color.fromARGB(255, 55, 57, 58),
           shadowColor: const Color.fromARGB(255, 55, 57, 58),
           leading: IconButton(
@@ -22,24 +22,27 @@ class Writing extends StatelessWidget {
             icon: Icon(Icons.arrow_back_ios),
           ),
         ),
-        body: WritingContain(),
+        body: PresentContinuousContent(),
       ),
     );
   }
 }
 
-class WritingContain extends StatelessWidget {
+class PresentContinuousContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Color textColor = Colors.white; // Establecer el color de texto deseado
+    Color purpleColor = Colors.purple; // Color morado
+
     return Container(
-      color: Color.fromARGB(255, 55, 57, 58), // Color outside the container
+      color: Color.fromARGB(255, 55, 57, 58), // Color fuera del contenedor
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
         child: Container(
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
             color:
-                Color.fromARGB(255, 48, 50, 51), // Color inside the container
+                Color.fromARGB(255, 48, 50, 51), // Color dentro del contenedor
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
@@ -47,9 +50,9 @@ class WritingContain extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Welcome to English Learning',
+                'Learn Present Continuous Tense',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: textColor,
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),
@@ -57,53 +60,55 @@ class WritingContain extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                'Start your journey to master English writing with our interactive lessons and exercises. Whether you are a beginner or looking to enhance your skills, we have resources for everyone.',
+                'Explore the usage and structure of the present continuous tense in English. Whether you are a beginner or looking to refine your skills, our lessons and exercises will help you master this important grammatical aspect.',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: textColor,
                   fontSize: 18,
                 ),
                 textAlign: TextAlign.justify,
               ),
               SizedBox(height: 40),
               Text(
-                'Interactive Lessons',
+                'Present Continuous Lessons',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: textColor,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(height: 10),
-              LessonItem(
-                  title: 'Lesson 1: Introduction to Writing',
+              PresentContinuousLesson(
+                  title: 'Introduction to Present Continuous',
                   level: 'Beginner',
-                  color: Colors.purple),
-              LessonItem(
-                  title: 'Lesson 2: Crafting Engaging Stories',
+                  color: purpleColor),
+              PresentContinuousLesson(
+                  title: 'Forming the Present Continuous Tense',
                   level: 'Intermediate',
-                  color: Colors.purple),
-              LessonItem(
-                  title: 'Lesson 3: Advanced Composition Techniques',
+                  color: purpleColor),
+              PresentContinuousLesson(
+                  title: 'Using Present Continuous in Context',
                   level: 'Advanced',
-                  color: Colors.purple),
+                  color: purpleColor),
               SizedBox(height: 40),
               Text(
-                'Practice Writing',
+                'Practice Present Continuous',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: textColor,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(height: 10),
-              PracticeItem(
-                  title: 'Write a Short Essay on a Chosen Topic',
-                  description: 'Express your thoughts and opinions.',
-                  color: Colors.purple),
-              PracticeItem(
-                  title: 'Grammar and Vocabulary Exercises',
-                  description: 'Enhance your language skills.',
-                  color: Colors.purple),
+              PresentContinuousPractice(
+                  title: 'Complete the Sentences with Present Continuous',
+                  description:
+                      'Fill in the blanks with the correct present continuous form of the verbs.',
+                  color: purpleColor),
+              PresentContinuousPractice(
+                  title: 'Describe Your Current Activities',
+                  description:
+                      'Narrate your ongoing activities using present continuous tense.',
+                  color: purpleColor),
             ],
           ),
         ),
@@ -112,12 +117,12 @@ class WritingContain extends StatelessWidget {
   }
 }
 
-class LessonItem extends StatelessWidget {
+class PresentContinuousLesson extends StatelessWidget {
   final String title;
   final String level;
   final Color color;
 
-  const LessonItem(
+  const PresentContinuousLesson(
       {required this.title, required this.level, required this.color});
 
   @override
@@ -130,18 +135,18 @@ class LessonItem extends StatelessWidget {
       subtitle: Text('Level: $level',
           style: TextStyle(color: color.withOpacity(0.8))),
       onTap: () {
-        // Add functionality to navigate to the lesson details
+        // Agregar funcionalidad para navegar a los detalles de la lección
       },
     );
   }
 }
 
-class PracticeItem extends StatelessWidget {
+class PresentContinuousPractice extends StatelessWidget {
   final String title;
   final String description;
   final Color color;
 
-  const PracticeItem(
+  const PresentContinuousPractice(
       {required this.title, required this.description, required this.color});
 
   @override
@@ -154,7 +159,7 @@ class PracticeItem extends StatelessWidget {
       subtitle:
           Text(description, style: TextStyle(color: color.withOpacity(0.8))),
       onTap: () {
-        // Add functionality to start the writing practice
+        // Agregar funcionalidad para comenzar la práctica del presente continuo
       },
     );
   }
