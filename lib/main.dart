@@ -50,9 +50,11 @@ class _EnglishAppState extends State<EnglishApp> {
           "/signup": (context) => const Register(),
           "/login": (context) => const Login(),
           "/home": (context) => const Home(),
+          //books
           "/books": (context) => const BooksHome(),
           "/books/create": (context) => const CreateBook(),
           "/books/edit": (context) => const EditBook(),
+          //tasks
           "/tasks": (context) => const TasksHome(),
           "/tasks/create": (context) => const CreateTask(),
           "/tasks/edit": (context) => const EditTask(),
