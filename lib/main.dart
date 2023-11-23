@@ -12,6 +12,7 @@ import 'package:frontend_flutter/skills/reading.dart';
 import 'package:frontend_flutter/skills/speaking.dart';
 import 'package:frontend_flutter/skills/writing.dart';
 import 'package:frontend_flutter/tasks/createTask.dart';
+import 'package:frontend_flutter/tasks/editTask.dart';
 import 'package:frontend_flutter/tasks/tasksMain.dart';
 import 'package:frontend_flutter/tenses/past_continuos.dart';
 import 'package:frontend_flutter/tenses/past_perfect.dart';
@@ -55,11 +56,15 @@ class _EnglishAppState extends State<EnglishApp> {
           "/signup": (context) => const Register(),
           "/login": (context) => const Login(),
           "/home": (context) => const Home(),
+          //books
           "/books": (context) => const BooksHome(),
           "/books/create": (context) => const CreateBook(),
           "/books/edit": (context) => const EditBook(),
+          //tasks
           "/tasks": (context) => const TasksHome(),
           "/tasks/create": (context) => const CreateTask(),
+          "/tasks/edit": (context) => const EditTask(),
+
           "/writing": (context) => const Writing(),
           "/speaking": (context) => const Speaking(),
           "/reading": (context) => const Reading(),

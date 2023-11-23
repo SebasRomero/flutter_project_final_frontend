@@ -144,8 +144,12 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      endDrawer: Drawer(
-        backgroundColor: const Color.fromARGB(255, 55, 57, 58),
+      endDrawer: 
+      Drawer(
+  backgroundColor: const Color.fromARGB(255, 55, 57, 58),
+  child: Column(
+    children: [
+      Expanded(
         child: ListView(
           children: [
             const DrawerHeader(
@@ -181,6 +185,23 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
+      // Log Out button at the bottom
+      ListTile(
+        title: const Text(
+          'Log Out',
+          style: TextStyle(color: Colors.white, fontSize: 20),
+        ),
+        onTap: () {
+          // Perform log out logic here
+          // Example: Clear authentication token, user data, etc.
+
+          // Navigate to the "/" route and remove context
+          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+        },
+      ),
+    ],
+  ),
+),
     );
   }
 
