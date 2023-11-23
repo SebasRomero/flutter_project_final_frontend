@@ -1,6 +1,5 @@
 import 'dart:convert' as convert;
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/auth/context.dart';
 import 'package:frontend_flutter/tasks/createTask.dart';
@@ -21,6 +20,13 @@ class TasksHome extends StatefulWidget {
 class _TasksHomeState extends State<TasksHome> {
   List<Map<String, dynamic>> tasks = [];
 
+  getJWT() {
+    UserAuthentication userAuth =
+        Provider.of<UserAuthentication>(context, listen: false);
+    String jwtToken = userAuth.accessToken!;
+    return jwtToken;
+  }
+
   getTasks() async {
     UserAuthentication userAuth =
         Provider.of<UserAuthentication>(context, listen: false);
@@ -34,8 +40,6 @@ class _TasksHomeState extends State<TasksHome> {
       List<Map<String, dynamic>> taskData = jsonResponse.map((item) {
         return Map<String, dynamic>.from(item);
       }).toList();
-
-      print(taskData);
       setState(() {
         tasks = taskData;
       });
@@ -46,6 +50,7 @@ class _TasksHomeState extends State<TasksHome> {
   void initState() {
     super.initState();
     getTasks();
+    // print(tasks);
   }
 
   void deleteTask(int index) {
@@ -111,7 +116,7 @@ class _TasksHomeState extends State<TasksHome> {
                     )),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/edit', arguments: {
+                    Navigator.pushNamed(context, '/tasks/edit', arguments: {
                       "title": tasks[index]["title"],
                       "description": tasks[index]["description"],
                       "done": tasks[index]["done"],
@@ -142,9 +147,14 @@ class _TasksHomeState extends State<TasksHome> {
                               TextButton(
                                   onPressed: () async {
                                     String id = tasks[index]["_id"];
+                                    String jwtToken = getJWT();
                                     final url = Uri.parse(
                                         "http://localhost:3000/tasks/$id");
-                                    await http.delete(url);
+                                    await http.delete(url, headers: {
+                                      HttpHeaders.authorizationHeader:
+                                          "Bearer $jwtToken"
+                                    });
+
                                     getTasks();
                                     Navigator.of(context).pop();
                                   },

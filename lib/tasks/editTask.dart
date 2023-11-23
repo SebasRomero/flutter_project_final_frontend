@@ -5,43 +5,55 @@ import 'package:frontend_flutter/auth/context.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
-class EditBook extends StatefulWidget {
-  const EditBook({super.key});
+class EditTask extends StatefulWidget {
+  const EditTask({super.key});
 
   @override
-  State<EditBook> createState() => _EditBookState();
+  State<EditTask> createState() => _EditTaskState();
 }
 
-class _EditBookState extends State<EditBook> {
-  TextEditingController controllerName = TextEditingController();
-  TextEditingController controllerAuthor = TextEditingController();
-  String idBook = "";
+class _EditTaskState extends State<EditTask> {
+  TextEditingController controllerTitle = TextEditingController();
+  TextEditingController controllerDescription = TextEditingController();
+  String idTask = "";
+  bool isChecked = false;
 
   void clearFields() {
     setState(() {
-      controllerName.clear();
-      controllerAuthor.clear();
+      controllerTitle.clear();
+      controllerDescription.clear();
     });
   }
 
-    void cargarInfo(String name, String author, String selectedValue, String id) {
+      void cargarInfo(String title, String description, bool done, String id) {
     setState(() {
-      controllerName.text = name;
-      controllerAuthor.text = author;
-      selectedValue = selectedValue;
-      idBook = id;
+      controllerTitle.text = title;
+      controllerDescription.text = description;
+      isChecked = done;
+      idTask = id;
     });
   }
-
-  String selectedValue = 'Sci Fiction';
 
     @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     Map arg = ModalRoute.of(context)?.settings.arguments as Map;
     cargarInfo(
-        arg["name"], arg["author"], arg["genre"], arg["_id"].toString());
+        arg["title"], arg["description"], arg["done"], arg["_id"].toString());
   }
+
+  Color getColor(Set<MaterialState> states) {
+    const Set<MaterialState> interactiveStates = <MaterialState>{
+      MaterialState.pressed,
+      MaterialState.hovered,
+      MaterialState.focused,
+    };
+    if (states.any(interactiveStates.contains)) {
+      return Colors.blue;
+    }
+    return const Color.fromARGB(255, 157, 44, 209);
+  }
+
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -106,50 +118,50 @@ class _EditBookState extends State<EditBook> {
                       children: [
                         Container(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 80),
-                          child: const Text("Edit your book!",
+                          child: const Text("Edit your task!",
                               style:
                                   TextStyle(fontSize: 50, color: Colors.white)),
                         ),
                         Container(
                           padding: const EdgeInsets.all(5),
                           child: fieldsForm(
-                              controllerName,
-                              "Name",
+                              controllerTitle,
+                              "Title",
                               TextInputType.text,
-                              "Please, insert a valid name",
+                              "m",
                               Icons.title,
-                              "Reading alone"),
+                              "Read something"),
                         ),
                         Container(
                           padding: const EdgeInsets.all(5),
                           child: fieldsForm(
-                              controllerAuthor,
-                              "Author name",
+                              controllerDescription,
+                              "Description",
                               TextInputType.text,
-                              "Please, insert a valid author name",
-                              Icons.person,
-                              "John Doe"),
+                              "m",
+                              Icons.text_snippet_outlined,
+                              "Finish my today's lesson about present simple"),
                         ),
                         Container(
-                            child: DropdownButton<String>(
-                          value: selectedValue,
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              selectedValue = newValue!;
-                            });
-                          },
-                          items: <String>[
-                            'Sci Fiction',
-                            'Thriller',
-                            'Gore',
-                            'Comedy'
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        )),
+                          padding: const EdgeInsets.all(5),
+                          child: const Text(
+                            "Is done already?",
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
+                        ),
+                        Container(
+                          child: Checkbox(
+                            checkColor: Colors.white,
+                            fillColor:
+                                MaterialStateProperty.resolveWith(getColor),
+                            value: isChecked,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                isChecked = value!;
+                              });
+                            },
+                          ),
+                        ),
                         Container(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                           child: Row(
@@ -168,7 +180,7 @@ class _EditBookState extends State<EditBook> {
                                             BorderRadius.circular(30))),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    editBook();
+                                    editTask();
                                   }
                                 },
                                 child: const Text("Edit"),
@@ -199,7 +211,7 @@ class _EditBookState extends State<EditBook> {
                             children: [
                               FloatingActionButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, '/books');
+                                  Navigator.pushNamed(context, '/tasks');
                                 },
                                 backgroundColor:
                                     const Color.fromARGB(255, 157, 44, 209),
@@ -251,20 +263,24 @@ class _EditBookState extends State<EditBook> {
         });
   }
 
-  void editBook() async {
+  void editTask() async {
     UserAuthentication userAuth =
         Provider.of<UserAuthentication>(context, listen: false);
+
     String jwtToken = userAuth.accessToken!;
-    String name = controllerName.text;
-    String author = controllerAuthor.text;
-    String id = idBook;
+    String title = controllerTitle.text;
+    String description = controllerDescription.text;
+    bool isDone = isChecked;
+    String id = idTask;
     Map<dynamic, dynamic> request = {
-      "author": author,
-      "name": name,
-      "genre": selectedValue
+      "title": title,
+      "description": description,
+      "done": isDone.toString()
     };
-    final url = Uri.parse("http://localhost:3000/books/$id");
-    await http.put(url, body: request, headers: {HttpHeaders.authorizationHeader: "Bearer $jwtToken"});
+    final url = Uri.parse("http://localhost:3000/tasks/$id");
+    await http.put(url,
+        body: request,
+        headers: {HttpHeaders.authorizationHeader: "Bearer $jwtToken"});
     _showMyDialog();
   }
 
@@ -274,11 +290,11 @@ class _EditBookState extends State<EditBook> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext alertContext) {
         return AlertDialog(
-          title: const Text('Book edited!'),
+          title: const Text('Task edited!'),
           content: const SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('Your bookstore it is still great!'),
+                Text('Do not forget to do it!'),
               ],
             ),
           ),
@@ -287,7 +303,7 @@ class _EditBookState extends State<EditBook> {
               child: const Text('Ok'),
               onPressed: () {
                 Navigator.of(alertContext).pop();
-                Navigator.pushNamed(context, '/books');
+                Navigator.pushNamed(context, '/tasks');
               },
             ),
           ],
