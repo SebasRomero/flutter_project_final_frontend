@@ -110,9 +110,9 @@ class _CreateTaskState extends State<CreateTask> {
                               controllerTitle,
                               "Title",
                               TextInputType.text,
-                              "Please, insert a valid title",
-                              Icons.book,
-                              "Reading alone"),
+                              "",
+                              Icons.title,
+                              "Read something"),
                         ),
                         Container(
                           padding: const EdgeInsets.all(5),
