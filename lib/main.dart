@@ -9,6 +9,7 @@ import 'package:frontend_flutter/homepage.dart';
 import 'package:frontend_flutter/presentationPage.dart';
 import 'package:frontend_flutter/skills/writing.dart';
 import 'package:frontend_flutter/tasks/createTask.dart';
+import 'package:frontend_flutter/tasks/editTask.dart';
 import 'package:frontend_flutter/tasks/tasksMain.dart';
 import 'package:provider/provider.dart';
 
@@ -54,6 +55,7 @@ class _EnglishAppState extends State<EnglishApp> {
           "/books/edit": (context) => const EditBook(),
           "/tasks": (context) => const TasksHome(),
           "/tasks/create": (context) => const CreateTask(),
+          "/tasks/edit": (context) => const EditTask(),
 
           "/writing": (context) => const Writing(),
         },
