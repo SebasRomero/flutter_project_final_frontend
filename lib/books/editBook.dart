@@ -5,16 +5,17 @@ import 'package:frontend_flutter/auth/context.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
-class CreateBook extends StatefulWidget {
-  const CreateBook({super.key});
+class EditBook extends StatefulWidget {
+  const EditBook({super.key});
 
   @override
-  State<CreateBook> createState() => _CreateBookState();
+  State<EditBook> createState() => _EditBookState();
 }
 
-class _CreateBookState extends State<CreateBook> {
+class _EditBookState extends State<EditBook> {
   TextEditingController controllerName = TextEditingController();
   TextEditingController controllerAuthor = TextEditingController();
+  String idBook = "";
 
   void clearFields() {
     setState(() {
@@ -23,7 +24,24 @@ class _CreateBookState extends State<CreateBook> {
     });
   }
 
+    void cargarInfo(String name, String author, String selectedValue, String id) {
+    setState(() {
+      controllerName.text = name;
+      controllerAuthor.text = author;
+      selectedValue = selectedValue;
+      idBook = id;
+    });
+  }
+
   String selectedValue = 'Sci Fiction';
+
+    @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    Map arg = ModalRoute.of(context)?.settings.arguments as Map;
+    cargarInfo(
+        arg["name"], arg["author"], arg["genre"], arg["_id"].toString());
+  }
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -88,7 +106,7 @@ class _CreateBookState extends State<CreateBook> {
                       children: [
                         Container(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 80),
-                          child: const Text("Register a new book",
+                          child: const Text("Edid your book!",
                               style:
                                   TextStyle(fontSize: 50, color: Colors.white)),
                         ),
@@ -150,10 +168,10 @@ class _CreateBookState extends State<CreateBook> {
                                             BorderRadius.circular(30))),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    registerBook();
+                                    editBook();
                                   }
                                 },
-                                child: const Text("Register"),
+                                child: const Text("Edit"),
                               ),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
@@ -233,21 +251,20 @@ class _CreateBookState extends State<CreateBook> {
         });
   }
 
-  void registerBook() async {
+  void editBook() async {
     UserAuthentication userAuth =
         Provider.of<UserAuthentication>(context, listen: false);
     String jwtToken = userAuth.accessToken!;
     String name = controllerName.text;
     String author = controllerAuthor.text;
+    String id = idBook;
     Map<dynamic, dynamic> request = {
-      "name": name,
       "author": author,
+      "name": name,
       "genre": selectedValue
     };
-    final url = Uri.parse("http://localhost:3000/books");
-    await http.post(url,
-        body: request,
-        headers: {HttpHeaders.authorizationHeader: "Bearer $jwtToken"});
+    final url = Uri.parse("http://localhost:3000/books/$id");
+    await http.put(url, body: request, headers: {HttpHeaders.authorizationHeader: "Bearer $jwtToken"});
     _showMyDialog();
   }
 
@@ -257,11 +274,11 @@ class _CreateBookState extends State<CreateBook> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext alertContext) {
         return AlertDialog(
-          title: const Text('New book added!'),
+          title: const Text('Book edited!'),
           content: const SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('Your bookstore is increasing!'),
+                Text('Your bookstore it is still great!'),
               ],
             ),
           ),
