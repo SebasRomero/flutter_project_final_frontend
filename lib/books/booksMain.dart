@@ -21,9 +21,13 @@ class BooksHome extends StatefulWidget {
 class _BooksHomeState extends State<BooksHome> {
   List<Map<String, dynamic>> books = [];
 
-  getBooks() async {
-      UserAuthentication userAuth = Provider.of<UserAuthentication>(context, listen: false);
+  getJWT() {
+          UserAuthentication userAuth = Provider.of<UserAuthentication>(context, listen: false);
       String jwtToken = userAuth.accessToken!;
+      return jwtToken;
+  }
+  getBooks() async {
+      String jwtToken = getJWT();
     var url = Uri.parse("http://localhost:3000/books");
     http.Response response = await http.get(url, headers: {
       HttpHeaders.authorizationHeader: "Bearer $jwtToken"
@@ -31,7 +35,6 @@ class _BooksHomeState extends State<BooksHome> {
     if (response.statusCode == 200) {
       List<dynamic> jsonResponse = convert.jsonDecode(response.body);
       
-
       List<Map<String, dynamic>> bookData = jsonResponse.map((item) {
         return Map<String, dynamic>.from(item);
       }).toList();
@@ -90,11 +93,21 @@ class _BooksHomeState extends State<BooksHome> {
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
+                Container(
+                  padding: const EdgeInsets.fromLTRB(0, 12, 130, 0),
+                  child: Column(
+                    children: [
+                      Text(books[index]["genre"],
+                  style: const TextStyle(color: Colors.black, fontSize: 14))
+                    ],
+                  )),
+
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/edit', arguments: {
-                      "title": books[index]["title"],
-                      "description": books[index]["description"],
+                    Navigator.pushNamed(context, '/books/edit', arguments: {
+                      "name": books[index]["name"],
+                      "author": books[index]["author"],
+                      "genre": books[index]["genre"],
                       "_id": books[index]["_id"],
                     });
                   },
@@ -122,8 +135,9 @@ class _BooksHomeState extends State<BooksHome> {
                               TextButton(
                                   onPressed: () async {
                                     String id = books[index]["_id"];
+                                    String jwtToken = getJWT();
                                     final url = Uri.parse("http://localhost:3000/books/$id");
-                                    await http.delete(url);
+                                    await http.delete(url, headers: {HttpHeaders.authorizationHeader: "Bearer $jwtToken"});
                                     getBooks();
                                     Navigator.of(context).pop();
                                   },
