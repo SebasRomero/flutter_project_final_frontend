@@ -37,77 +37,78 @@ class ListeningContain extends StatelessWidget {
       color: Color.fromARGB(255, 55, 57, 58), // Color fuera del contenedor
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-        child: Container(
-          padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color:
-                Color.fromARGB(255, 48, 50, 51), // Color dentro del contenedor
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Improve Your Listening Skills',
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
+        child: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Color.fromARGB(255, 48, 50, 51), // Color dentro del contenedor
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Improve Your Listening Skills',
+                  style: TextStyle(
+                    color: textColor,
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Enhance your listening comprehension with our diverse collection of audio materials. Whether you are a beginner or an advanced listener, our resources cover a wide range of topics and difficulty levels.',
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: 18,
+                SizedBox(height: 20),
+                Text(
+                  'Enhance your listening comprehension with our diverse collection of audio materials. Whether you are a beginner or an advanced listener, our resources cover a wide range of topics and difficulty levels.',
+                  style: TextStyle(
+                    color: textColor,
+                    fontSize: 18,
+                  ),
+                  textAlign: TextAlign.justify,
                 ),
-                textAlign: TextAlign.justify,
-              ),
-              SizedBox(height: 40),
-              Text(
-                'Featured Audio',
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+                SizedBox(height: 40),
+                Text(
+                  'Featured Audio',
+                  style: TextStyle(
+                    color: textColor,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              SizedBox(height: 10),
-              AudioItem(
-                  title: 'Podcast: The Art of Communication',
-                  duration: '15 mins',
-                  color: Colors.purple),
-              AudioItem(
-                  title: 'Language Learning Dialogue: Everyday Situations',
-                  duration: '20 mins',
-                  color: Colors.purple),
-              AudioItem(
-                  title: 'News Brief: Current Events',
-                  duration: '10 mins',
-                  color: Colors.purple),
-              SizedBox(height: 40),
-              Text(
-                'Listening Exercises',
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+                SizedBox(height: 10),
+                AudioItem(
+                    title: 'Podcast: The Art of Communication',
+                    duration: '15 mins',
+                    color: Colors.purple),
+                AudioItem(
+                    title: 'Language Learning Dialogue: Everyday Situations',
+                    duration: '20 mins',
+                    color: Colors.purple),
+                AudioItem(
+                    title: 'News Brief: Current Events',
+                    duration: '10 mins',
+                    color: Colors.purple),
+                SizedBox(height: 40),
+                Text(
+                  'Listening Exercises',
+                  style: TextStyle(
+                    color: textColor,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              SizedBox(height: 10),
-              ExerciseItem(
-                  title: 'Listening Comprehension Quiz: Interviews',
-                  description: 'Test your understanding of spoken interviews.',
-                  color: Colors.purple),
-              ExerciseItem(
-                  title: 'Audio Transcript Analysis: Educational Lecture',
-                  description:
-                      'Analyze and understand the content of an educational lecture.',
-                  color: Colors.purple),
-            ],
+                SizedBox(height: 10),
+                ExerciseItem(
+                    title: 'Listening Comprehension Quiz: Interviews',
+                    description: 'Test your understanding of spoken interviews.',
+                    color: Colors.purple),
+                ExerciseItem(
+                    title: 'Audio Transcript Analysis: Educational Lecture',
+                    description:
+                        'Analyze and understand the content of an educational lecture.',
+                    color: Colors.purple),
+              ],
+            ),
           ),
         ),
       ),

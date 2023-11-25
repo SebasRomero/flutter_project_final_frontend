@@ -50,7 +50,6 @@ class _TasksHomeState extends State<TasksHome> {
   void initState() {
     super.initState();
     getTasks();
-    // print(tasks);
   }
 
   void deleteTask(int index) {
@@ -85,24 +84,28 @@ class _TasksHomeState extends State<TasksHome> {
           child: ListTile(
             isThreeLine: true,
             title: Container(
-              padding: EdgeInsets.all(5),
-              child: Column(
+              padding: const EdgeInsets.fromLTRB(0, 5, 0, 20),
+              child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(tasks[index]["title"],
-                        style: const TextStyle(color: Colors.black)),
+                        style: const TextStyle(color: Colors.black, fontSize: 14)),
                   ]),
             ),
             subtitle: Container(
-              padding: const EdgeInsets.all(5),
-              child: Text(tasks[index]["description"],
-                  style: const TextStyle(color: Colors.black, fontSize: 14)),
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+              child: Row(
+                children: [
+                  Text(tasks[index]["description"],
+                  style: const TextStyle(color: Colors.black, fontSize: 14))
+                ],
+              ),
             ),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                    padding: const EdgeInsets.fromLTRB(0, 7, 130, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 8, 20, 0),
                     child: Column(
                       children: [
                         Checkbox(

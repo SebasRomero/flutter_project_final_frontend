@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
           child: Stack(
             children: [
               Positioned(
-                top: 0,
+                top: 30,
                 right: 0, // Adjust the right position based on your design
                 child: GestureDetector(
                   onTap: () {
@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Positioned(
-                top: 0,
+                top: 30,
                 left: 0,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,7 +72,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Positioned(
-                top: 130,
+                top: 135,
                 child: Container(
                   child: const Text(
                     "You can improve every skill!",
@@ -106,7 +106,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Positioned(
-                top: 300,
+                top: 312,
                 child: Container(
                   child: const Text(
                     "You can learn all of these tenses!",
@@ -122,19 +122,19 @@ class _HomeState extends State<Home> {
                   width: MediaQuery.of(context).size.width,
                   child: ListView(
                     children: [
-                      _buttonEdited('Past Simple', '../assets/happy_woman.png',
+                      _buttonEdited('Past Simple', 'assets/happy_woman.png',
                           '/past_simple'),
                       _buttonEdited('Past Continuos',
-                          '../assets/girl_reading.jpg', '/past_continuos'),
-                      _buttonEdited('Past Perfect', '../assets/green.jpeg',
+                          'assets/girl_reading.jpg', '/past_continuos'),
+                      _buttonEdited('Past Perfect', 'assets/green.jpeg',
                           '/past_perfect'),
-                      _buttonEdited('Present Simple', '../assets/guy_dog.jpg',
+                      _buttonEdited('Present Simple', 'assets/guy_dog.jpg',
                           '/present_simple'),
-                      _buttonEdited('Present Continuos', '../assets/home.jpeg',
+                      _buttonEdited('Present Continuos', 'assets/home.jpeg',
                           '/present_continuos'),
-                      _buttonEdited('Present perfect', '../assets/bus.jpeg',
+                      _buttonEdited('Present perfect', 'assets/bus.jpeg',
                           '/present_perfect'),
-                      _buttonEdited('Future simple', '../assets/threek.jpeg',
+                      _buttonEdited('Future simple', 'assets/threek.jpeg',
                           '/future_simple')
                     ],
                   ),
@@ -247,7 +247,7 @@ class _HomeState extends State<Home> {
                 .withOpacity(0.9), // Match the button's border radius
             image: DecorationImage(
               image: const AssetImage(
-                  '../assets/sky.jpeg'), // Replace with your image path
+                  'assets/sky.jpeg'), // Replace with your image path
               fit: BoxFit.fill, // Adjust the BoxFit property as needed
               colorFilter: ColorFilter.mode(
                 Colors.black.withOpacity(0.5),

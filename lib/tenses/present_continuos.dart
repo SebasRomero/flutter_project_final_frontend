@@ -38,7 +38,9 @@ class PresentContinuousContent extends StatelessWidget {
       color: Color.fromARGB(255, 55, 57, 58), // Color fuera del contenedor
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-        child: Container(
+        child: SingleChildScrollView(
+          child: 
+          Container(
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
             color:
@@ -112,6 +114,7 @@ class PresentContinuousContent extends StatelessWidget {
             ],
           ),
         ),
+        )
       ),
     );
   }

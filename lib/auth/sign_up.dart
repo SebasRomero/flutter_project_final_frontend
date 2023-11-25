@@ -109,7 +109,7 @@ class _RegisterState extends State<Register> {
                           child: fieldsForm(
                               controllerPhone,
                               "Phone",
-                              TextInputType.text,
+                              TextInputType.phone,
                               "Please, insert a valid phone",
                               Icons.phone,
                               "3001132445", false),
@@ -221,8 +221,6 @@ class _RegisterState extends State<Register> {
     };
     final url = Uri.parse("http://localhost:3000/signup");
     var response = await http.post(url, body: request);
-    print(response.statusCode);
-    print(response.body);
     if (response.statusCode == HttpStatus.created) {
       _showMyDialog();
       final Map<String, dynamic> responseData = jsonDecode(response.body);
@@ -233,7 +231,6 @@ class _RegisterState extends State<Register> {
 
       userAuth.setAuthenticationData(accessToken, username);
     }
-    ;
     if (response.statusCode == HttpStatus.badRequest) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('User already exist'),

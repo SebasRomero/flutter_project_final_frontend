@@ -24,11 +24,11 @@ class _EditBookState extends State<EditBook> {
     });
   }
 
-    void cargarInfo(String name, String author, String selectedValue, String id) {
+    void cargarInfo(String name, String author, String selectedGenre, String id) {
     setState(() {
       controllerName.text = name;
       controllerAuthor.text = author;
-      selectedValue = selectedValue;
+      selectedValue = selectedGenre;
       idBook = id;
     });
   }

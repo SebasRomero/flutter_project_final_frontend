@@ -57,9 +57,9 @@ class _PresentationState extends State<Presentation> {
                   ),
                   child: const ClipOval(
                       child: Image(
-                    image: AssetImage('../assets/girl_mobile.jpg'),
-                    width: 400,
-                    height: 400,
+                    image: AssetImage('assets/girl_mobile.jpg'),
+                    width: 300,
+                    height: 300,
                     fit: BoxFit.cover,
                   )),
                 ),
